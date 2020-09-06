@@ -19,24 +19,13 @@ class DetailVC: BaseVC,UITableViewDelegate,UITableViewDataSource {
         super.viewDidLoad()
         self.tableView.dataSource = self
         self.tableView.delegate = self
-        let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
-        let height = window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
-
-        self.tableView.frame = CGRect(x: 0, y: height , width: screen().width, height: screen().height - height - self.btnContinue.frame.height)
+        
+        
+        let statusBarHeight = self.getStatusBarHeight()
+        self.tableView.frame = CGRect(x: 0, y: statusBarHeight , width: screen().width, height: screen().height - statusBarHeight - self.btnContinue.frame.height)
         self.btnContinue.addTarget(self, action: #selector(self.clickedContinue), for: .touchUpInside)
         print("")
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-//        self.navigationController?.setNavigationBarHidden(true, animated: animated)
-//        self.tabBarController?.tabBar.isHidden = true
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-//        self.navigationController?.setNavigationBarHidden(false, animated: animated)
-//        self.tabBarController?.tabBar.isHidden = false
-    }
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3

@@ -74,6 +74,12 @@ class BaseVC: UIViewController {
     func hideProgress() {
         self.progress?.removeFromSuperview()
     }
+    
+    func getStatusBarHeight() -> CGFloat {
+        let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+        let height = window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+        return height
+    }
 
 }
 

@@ -17,36 +17,31 @@ class ServiceVC: BaseVC,UITableViewDelegate,UITableViewDataSource,UIScrollViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.showProgress()
         self.addNavLogo()
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.separatorStyle = .none
-        
-        
-        self.tableView.frame = CGRect(x: 0, y: 0, width: screen().width, height: screen().height - (self.tabBarController?.tabBar.frame.size.height)!)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
         self.getHomePage()
+        self.tableView.frame = CGRect(x: 0, y: 0, width: screen().width, height: screen().height - (self.tabBarController?.tabBar.frame.size.height)!)
     }
     
     private func getHomePage(){
         API().getHome { (data, error) in
             if error == nil{
                 if data.value != nil{
-                    
+                    self.mainResponse = data.value
+                    self.tableView.reloadData()
+                    self.hideProgress()
                 }else{
                     self.showReloadAlert(message: "\(error?.localizedDescription ?? "")")
                 }
             }else{
                 self.showReloadAlert(message: "\(error?.localizedDescription ?? "")")
             }
-            self.mainResponse = data.value
-            self.tableView.reloadData()
+            
         }
     }
-    
-    
     
     private func showReloadAlert (message:String?){
         let message = "Sunucu üzerinden hata alındı.Hata Kodu : \(message ?? "")"
@@ -81,7 +76,7 @@ class ServiceVC: BaseVC,UITableViewDelegate,UITableViewDataSource,UIScrollViewDe
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 2{
-            return 250
+            return 300
         }
         return 200
     }

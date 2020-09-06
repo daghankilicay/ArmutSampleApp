@@ -19,7 +19,8 @@ class DetailBlogVC: BaseVC,WKNavigationDelegate {
         super.viewDidLoad()
         
         self.btnBack.addTarget(self, action: #selector(self.dismissViewController), for: .touchUpInside)
-        
+        let statusBarHeight = self.getStatusBarHeight()
+        self.webView.frame = CGRect(x: 0, y:statusBarHeight , width: screen().width, height: screen().height - statusBarHeight)
         self.webView.navigationDelegate = self
         self.setPage()
     }
@@ -33,6 +34,7 @@ class DetailBlogVC: BaseVC,WKNavigationDelegate {
             self.dismiss(animated: true, completion: nil)
         }
     }
+    
     private func loadWebView(urlStr:String){
         let request = URLRequest(url:URL(string: urlStr)!)
         webView.load(request)
