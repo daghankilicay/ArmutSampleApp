@@ -9,7 +9,7 @@
 import Foundation
 
 enum TitleEnums: String {
-    case trending = "Trend Olan Hizmetler"
-    case other = "Temizlik"
-    case post = "Blogdaki Son Haberler"
+    case trending = "Trendler"
+    case other = "Diğer"
+    case post = "Gönderiler"
 }
